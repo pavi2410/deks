@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
+    implementation("com.malinskiy.adam:adam:0.4.3")
 }
 
 tasks.withType<KotlinCompile> {
