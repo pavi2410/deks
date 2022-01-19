@@ -69,7 +69,7 @@ fun App() {
 
         Column {
             var currentTabIndex by remember { mutableStateOf(0) }
-            val tabs = listOf("General", "File Transfer", "Shell", "Device", "Settings", "About")
+            val tabs = listOf("General", "Files", "Shell", "Device", "Settings", "About")
 
             TabRow(
                 selectedTabIndex = currentTabIndex,
