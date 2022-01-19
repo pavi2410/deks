@@ -109,7 +109,33 @@ fun App() {
                     }
                 }
                 1 -> {
-                    Text("File Transfer")
+                    val files = remember { mutableStateListOf<AndroidFile>() }
+
+                    LaunchedEffect(Unit) {
+                        if (devices.isEmpty()) {
+                            scaffoldState.snackbarHostState.showSnackbar("No devices connected!")
+                            return@LaunchedEffect
+                        }
+
+                        val adb = AndroidDebugBridgeClientFactory().build()
+
+                        adb.execute(
+                            request = ListFilesRequest(
+                                directory = "/sdcard/"
+                            ),
+                            serial = devices[0].serial
+                        ).also {
+                            files.clear()
+                            files.addAll(it)
+                        }
+                    }
+
+                    Text("Files")
+                    LazyColumn {
+                        items(files) { file ->
+                            Text(file.name)
+                        }
+                    }
                 }
                 2 -> {
                     var shellCmd by remember { mutableStateOf("") }
