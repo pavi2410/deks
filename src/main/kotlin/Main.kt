@@ -146,9 +146,19 @@ fun App() {
                     Text("Settings")
                 }
                 5 -> {
+                    val uriHandler = LocalUriHandler.current
+                    val sourceUrl = "https://github.com/pavi2410/deks"
+
                     Text("Created by Pavitra Golchha (@pavi2410)")
 
-                    Text("Source: https://github.com/pavi2410/deks")
+                    ClickableText(buildAnnotatedString {
+                        append("Source: ")
+                        withAnnotation("source", sourceUrl) {
+                            append(sourceUrl)
+                        }
+                    }) {
+                        uriHandler.openUri(sourceUrl)
+                    }
                 }
             }
         }
