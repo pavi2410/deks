@@ -54,7 +54,14 @@ fun App() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("deks") }
+                title = { Text("deks", fontWeight = FontWeight.Bold) },
+                elevation = 0.dp,
+                actions = {
+                    Chip(
+                        if (devices.isNotEmpty()) "CONNECTED" else "CONNECT DEVICE",
+                        if (devices.isNotEmpty()) Color.Green else Color.Red
+                    )
+                }
             )
         },
         scaffoldState = scaffoldState
@@ -152,6 +159,20 @@ fun main() = application {
     Window(title = "deks", onCloseRequest = ::exitApplication) {
         MaterialTheme {
             App()
+        }
+    }
+}
+
+@Composable
+fun Chip(text: String, color: Color) {
+    Surface(
+        color = Color.White.copy(alpha = 0.2f),
+        shape = RoundedCornerShape(50)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
+            Box(Modifier.size(8.dp).background(color, RoundedCornerShape(50)))
+            Spacer(Modifier.width(4.dp))
+            Text(text, style = MaterialTheme.typography.caption)
         }
     }
 }
